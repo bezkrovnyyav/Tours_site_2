@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block container %}
+{% load humanize %}
+<body>
+  <main class="container mt-3">
+    <h1 class="display-5 mt-4">Летим {{ current_departure }}</h1>
+      <p class="mb-4">Найдено {{ ongoing_tours|length }} тура, от {{ tours_prices|first|intcomma }} до {{ tours_prices|last|intcomma }} и от {{ tours_nights|first }} ночей до {{ tours_nights|last }} ночей</p>
+      <!-- CARDS -->
+  <div class="row mt-5">
+      {% for id_tour, tour in ongoing_tours.items %}
+      <div class="col-4">
+        <div class="card mb-4">
+          <img src="{{ tour.picture }}" class="card-img-top" height="200"  alt="" >
+          <div class="card-body">
+            <h2 class="h5 card-title">{{ tour.title }}</h2>
+            <p class="card-text">{{ tour.description|truncatechars:150 }}</p>
+            <a href="/tour/{{ id_tour }}/" class="btn btn-sm btn-primary">{{ tour.title }}</a>
+          </div>
+        </div>
+      </div>
+  {% endfor %}
+  </div>
+  </main>
+</body>
+{% endblock %}
